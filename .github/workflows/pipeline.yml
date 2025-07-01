@@ -1,0 +1,39 @@
+name: Deploy Bicep Template to Azure
+
+on:
+  workflow_dispatch:
+
+env:
+  AZURE_LOCATION: westeurope
+
+jobs:
+  deploy:
+    name: Deploy to Azure
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Azure CLI
+      uses: azure/setup-azure@v1
+      with:
+        azure-cli-version: latest
+        
+    - name: Login to Azure
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+    - name: Deploy Bicep template
+      run: |
+        az deployment sub create \
+          --location ${{ env.AZURE_LOCATION }} \
+          --template-file main.bicep \
+          --parameters appName='hazi-5' \
+          --name "deploy-$(date +%Y%m%d-%H%M%S)"
+          
+    - name: Output deployment results
+      run: |
+        echo "Deployment completed successfully!"
+        echo "Resources deployed to: ${{ env.AZURE_LOCATION }}"
