@@ -37,3 +37,15 @@ module serviceModule './resources/app-service.bicep' = {
     resourceGroupModule
   ]
 }
+
+module databaseModule './resources/database.bicep' = {
+  name: 'databaseModule'
+  scope: resourceGroup(resourceGroupName)
+  params: {
+    appName: appName
+    location: location
+  }
+  dependsOn: [
+    resourceGroupModule
+  ]
+}

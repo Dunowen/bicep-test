@@ -3,7 +3,7 @@ param location string
 param appInsightsInstrumentationKey string
 
 var appServicePlanName = '${appName}-plan'
-var appServiceName = '${appName}-api'
+var appServiceName = '${appName}-app'
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2023-12-01' = {
   name: appServicePlanName
