@@ -3,7 +3,7 @@ targetScope = 'subscription'
 param appName string
 
 var resourceGroupName = '${appName}-rg'
-var location = 'westeurope'
+var location = 'swedencentral'
 
 module resourceGroupModule './resources/resource-group.bicep' = {
   name: 'resourceGroupModule'
